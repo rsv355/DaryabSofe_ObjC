@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "PayPalMobile.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +18,27 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    //userID
+    
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"userID"] == nil) {
+        
+        UIViewController *viewController =[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"LOGIN"];
+        UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+        [navigationController pushViewController:viewController animated:YES];
+    }
+    else {
+        NSLog(@"-->> %@",[[NSUserDefaults standardUserDefaults]objectForKey:@"userID"]);
+        UIViewController *viewController =[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"PARENT"];
+        [[NSUserDefaults standardUserDefaults]setObject:@"CATEGORY" forKey:@"storyboardID"];
+        UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+        [navigationController pushViewController:viewController animated:YES];
+    }
+   
+    //[PayPalMobile initializeWithClientIdsForEnvironments:@{PayPalEnvironmentProduction : @""}];
+    
+     [PayPalMobile initializeWithClientIdsForEnvironments:@{PayPalEnvironmentSandbox : @"AebkW5t1FHDRoALK4rjHZ893cPzTTRtVtS-Gh9RjSCdJY5zCushzHSnJWi_VcF14EwlTwpkHuZ89cSSA"}];
+    //AebkW5t1FHDRoALK4rjHZ893cPzTTRtVtS-Gh9RjSCdJY5zCushzHSnJWi_VcF14EwlTwpkHuZ89cSSA
+    //AFcWxV21C7fd0v3bYYYRCpSSRl31AAF1j6Oaj097SnMlPl3vFD6kc-eZ
     return YES;
 }
 
